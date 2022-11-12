@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "agrow_app",
-    "slug": "agrow_app",
+    "name": "agrow-app",
+    "slug": "agrow-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
