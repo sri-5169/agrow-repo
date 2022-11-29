@@ -1,16 +1,15 @@
 import React from "react"
-import { View } from "react-native";
 import Home from './src/screens/Home';
 import About from "./src/screens/About";
 import Contact from "./src/screens/Contact";
 import ChatBot from "./src/screens/ChatBot";
 import CropScheduler from "./src/screens/CropScheduler";
 import DiseasePredictor from "./src/screens/DiseasePredictor";
-import ExpenseCalculator from "./src/screens/ExpenseCalculator";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./src/screens/Login";
 import Signup from "./src/screens/Signup";
+import ExpenseCalculator from "./src/screens/ExpenseCalculator";
 export default function App() {
   const Stack = createNativeStackNavigator();
   return( 

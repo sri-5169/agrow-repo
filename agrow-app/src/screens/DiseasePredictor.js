@@ -1,6 +1,7 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker';
+import {crops} from "../api/CropsList";
 const DiseasePredictor = () => {
   const [picture, setPicture] = useState("");
   let openImagePickerAsync = async () => {
@@ -8,6 +9,24 @@ const DiseasePredictor = () => {
     console.log(pickerResult);
     setPicture(pickerResult.uri);
   }
+    
+  const oneCrop = ({ item }) => (
+    <View style={ styles.item }>
+      <View style={ styles.avatarContainer }>
+        <Image source={ item.image } style={ styles.avatar } />
+      </View>      
+      <Text style={ styles.name }>{item.name}</Text>
+    </View>    
+  );
+  const headerComponent = () => {
+    return <Text style={ styles.listHeadline }>Choose the crop</Text>        
+  }
+
+  const listSeparator = () => {
+    return <View style={ styles.separator } />
+  }    
+
+
   return (
     <View>
       <View style={styles.container}>
@@ -19,6 +38,16 @@ const DiseasePredictor = () => {
         <Text style={styles.buttonText}>Pick a photo</Text>
       </TouchableOpacity>
     </View>
+    <SafeAreaView style={ styles.crop_container }>
+      <FlatList 
+        ListHeaderComponentStyle = { styles.listHeader }
+        ListHeaderComponent = { headerComponent }              
+        ListEmptyComponent = { <Text>Crops</Text> }
+        data = { crops }
+        renderItem={oneCrop}        
+        ItemSeparatorComponent={ listSeparator }
+      />      
+    </SafeAreaView>
     </View>
   )
 }
@@ -51,5 +80,57 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#fff',
+  },
+  crop_container: {
+    flex: 1,
+    marginHorizontal: 21,
+  },
+
+  listHeader: {
+    height: 55,    
+    alignItems: 'center',
+    justifyContent: 'center',    
+    marginBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#7B52AB',
+  },
+
+  listHeadline: {
+    color: '#333333',
+    fontWeight: 'bold',
+    fontSize: 21,
+  },
+
+  item: {
+    flex: 1,
+    flexDirection: 'row',    
+    alignItems: 'center',
+    paddingVertical: 13,    
+  },
+
+  avatarContainer: {        
+    backgroundColor: '#D9D9D9',
+    borderRadius: 100,
+    height: 89,
+    width: 89,
+    justifyContent: 'center',
+    alignItems: 'center',    
+  },
+  
+  avatar: {
+    height: 55,
+    width: 55,
+  },
+
+  name: {
+    fontWeight: '600',
+    fontSize: 16,
+    marginLeft: 13,
+  },
+
+  separator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#CCC',
   },
 })
