@@ -4,25 +4,41 @@ import About from "./src/screens/About";
 import Contact from "./src/screens/Contact";
 import ChatBot from "./src/screens/ChatBot";
 import CropScheduler from "./src/screens/CropScheduler";
-import DiseasePredictor from "./src/screens/DiseasePredictor";
+import DiseasePredictor from "./src/screens/disease/DiseasePredictor";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./src/screens/Login";
 import Signup from "./src/screens/Signup";
 import ExpenseCalculator from "./src/screens/ExpenseCalculator";
+import RegionPanel from "./src/screens/disease/RegionPanel";
+import Cure from "./src/screens/disease/Cure";
 export default function App() {
   const Stack = createNativeStackNavigator();
-  return( 
+  return(
     <>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={Home} />
-        
         <Stack.Screen name="Login" component={Login} options={{
           headerTitleStyle : {
             fontSize : 25,
           },
           headerTitle : "Login",
+          headerTitleAlign : "center",
+        }}/>
+
+        <Stack.Screen name="Cure" component={Cure} options={{
+          headerTitleStyle : {
+            fontSize : 25,
+          },
+          headerTitle : "Cure for the crop",
+          headerTitleAlign : "center",
+        }}/>
+        <Stack.Screen name="RegionPanel" component={RegionPanel} options={{
+          headerTitleStyle : {
+            fontSize : 25,
+          },
+          headerTitle : "Tell Your Region",
           headerTitleAlign : "center",
         }}/>
         <Stack.Screen name="Signup" component={Signup} options={{

@@ -2,9 +2,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useTransition } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import AppLoading from "expo-app-loading";
+import { backgroundColor } from '@shopify/restyle';
 const Menu = () => {
   const navigation   = useNavigation();
-
                     return (
     <View style={styles.menuContainer}>
 <TouchableOpacity 
@@ -145,7 +145,9 @@ const styles = StyleSheet.create({
         display : "flex",
         flexDirection : "row",
         flexWrap : "wrap",
-        justifyContent : "space-around"
+        justifyContent : "space-around",
+        backgroundColor :"#fff",
+        width : "100%",
   },
 menuCard : {
 
@@ -177,10 +179,11 @@ menuImage : {
     width :140,
     aspectRatio : 1,
     display : "flex",
+    zIndex : 1,
     alignItems : "center",
     justifyContent : "center",
     borderRadius : 20,
-    backgroundColor : "grey",
+    backgroundColor : "white",
 }
 })
 // import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'

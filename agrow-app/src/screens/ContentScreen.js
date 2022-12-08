@@ -1,16 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Contact = () => {
+const ContentScreen = () => {
   return (
     <View>
-      <Text>Contact</Text>
-      git init
-      git clone https://github.com/sri-5169/agrow-repo.git
+      <Text>ContentScreen</Text>
     </View>
   )
 }
 
-export default Contact
+export default ContentScreen
 
 const styles = StyleSheet.create({})

@@ -1,23 +1,43 @@
 import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import * as ImagePicker from 'expo-image-picker';
-import {crops} from "../api/CropsList";
-const DiseasePredictor = () => {
+import {crops} from "../../api/CropsList";
+
+
+
+
+const DiseasePredictor = ({navigation}) => {
   const [picture, setPicture] = useState("");
+  const [selectedId, setSelectedId] = useState(null);
   let openImagePickerAsync = async () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
     console.log(pickerResult);
     setPicture(pickerResult.uri);
   }
-    
-  const oneCrop = ({ item }) => (
-    <View style={ styles.item }>
-      <View style={ styles.avatarContainer }>
-        <Image source={ item.image } style={ styles.avatar } />
-      </View>      
-      <Text style={ styles.name }>{item.name}</Text>
-    </View>    
+  const Item = ({ item, onPress, backgroundColor, textColor }) => (
+    <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
+      <View style={ styles.item }>
+        <View style={ styles.avatarContainer }>
+          <Image source={ item.image } style={ styles.avatar } />
+        </View>      
+        <Text style={ styles.name }>{item.name}</Text>
+      </View> 
+    </TouchableOpacity>
   );
+
+  const oneCrop = ({ item }) => {
+    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+    const color = item.id === selectedId ? 'white' : 'black';
+    return (
+      <Item 
+      item={item}
+      onPress={() => setSelectedId(item.id)}
+      backgroundColor={{ backgroundColor }}
+      textColor={{ color }}
+      />
+    
+    );   
+    };
   const headerComponent = () => {
     return <Text style={ styles.listHeadline }>Choose the crop</Text>        
   }
@@ -37,7 +57,15 @@ const DiseasePredictor = () => {
       <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
         <Text style={styles.buttonText}>Pick a photo</Text>
       </TouchableOpacity>
+      {
+        picture && <View style = {styles.apicontainer}>
+        <TouchableOpacity onPress={() => navigation.navigate("RegionPanel")} style={styles.apibtn}>
+            <Text style={styles.buttonText}>Test the {selectedId && crops[selectedId-1].name} crop</Text>
+          </TouchableOpacity>
+        </View>
+      }
     </View>
+    
     <SafeAreaView style={ styles.crop_container }>
       <FlatList 
         ListHeaderComponentStyle = { styles.listHeader }
@@ -45,8 +73,10 @@ const DiseasePredictor = () => {
         ListEmptyComponent = { <Text>Crops</Text> }
         data = { crops }
         renderItem={oneCrop}        
-        ItemSeparatorComponent={ listSeparator }
-      />      
+        ItemSeparatorComponent={ listSeparator}
+        keyExtractor={(item)=> item.id}
+        extraData ={selectedId}
+        />      
     </SafeAreaView>
     </View>
   )
@@ -61,6 +91,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  apicontainer :{
+    paddingTop : -100,
+    width : "70%",
+    backgroundColor: '#fff',
+    marginHorizontal : 118,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },  
   logo: {
     width: 305,
     height: 159,
@@ -77,6 +115,12 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 5,
   },
+  apibtn: {
+    backgroundColor: 'green',
+    padding: 20,
+    borderRadius: 5,
+    width : "fit-content",
+  },
   buttonText: {
     fontSize: 20,
     color: '#fff',
@@ -84,6 +128,7 @@ const styles = StyleSheet.create({
   crop_container: {
     flex: 1,
     marginHorizontal: 21,
+    paddingHorizontal : 20,
   },
 
   listHeader: {

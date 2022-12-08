@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   lineStyle : {
                     marginBottom : 20,
                     // borderWidth : 1,
-                    borderColor : "grey"
+                    // borderColor : "grey"
   }
 });
 
